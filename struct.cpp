@@ -1,6 +1,6 @@
 #include "header.h"
 
-
+Vertex::Vertex(int n) : number(n) {}
 
 std::list<Vertex*> findAdjacentsByName(std::list<Vertex*>& graph, std::string name) {
     std::list<Vertex*> result;
@@ -11,4 +11,8 @@ std::list<Vertex*> findAdjacentsByName(std::list<Vertex*>& graph, std::string na
         }
     }
     return result;
+}
+
+void dijkstra(std::list<Vertex*>& graph, int src, int dest) {
+
 }
