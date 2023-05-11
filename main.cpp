@@ -29,6 +29,7 @@ void find_pairs(int n, int** adj, string* names) {
 
 int main() {
     setlocale(LC_ALL, "Russian");
+    int n = 5;
     string names[] = { "Олег", "Никита", "Настя", "Ваня", "Женя" };
     int** adj = new int* [n];
     for (int i = 0; i < n; i++) {
