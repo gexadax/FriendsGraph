@@ -15,6 +15,18 @@ void find_pairs(int n, int** adj, string* names) {
         }
     }
 
+    // Перебираем все возможные пары вершин
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            // Проверяем, не превышает ли расстояние между ними 3
+            if (adj[i][j] <= 3) {
+                // Выводим пару вершин
+                cout << names[i] << " " << names[j] << "\n";
+            }
+        }
+    }
+}
+
 int main() {
     setlocale(LC_ALL, "Russian");
     string names[] = { "Олег", "Никита", "Настя", "Ваня", "Женя" };
@@ -26,6 +38,7 @@ int main() {
         }
         adj[i][i] = 0;
 
+        // Добавляем ребра
         pair<string, string> edges[] = { {"Олег", "Никита"}, {"Никита", "Настя"}, {"Настя", "Ваня"}, {"Ваня", "Женя"} };
         int m = sizeof(edges) / sizeof(edges[0]);
         for (int i = 0; i < m; i++) {
@@ -39,6 +52,28 @@ int main() {
             }
         }
 
+        // Добавляем ребра, указанные во входных данных
+        pair<string, string> edges[] = { {"Oleg", "Nikita"}, {"Nikita", "Nastya"}, {"Nastya", "Vanya"}, {"Vanya", "Zhenya"} }; // Edges between them
+        int m = sizeof(edges) / sizeof(edges[0]); // Number of edges
+        for (int i = 0; i < m; i++) {
+            int u = -1, v = -1;
+            for (int j = 0; j < n; j++) {
+                if (names[j] == edges[i].first) u = j;
+                if (names[j] == edges[i].second) v = j;
+            }
+            if (u != -1 && v != -1) {
+                adj[u][v] = adj[v][u] = 1; 
+            }
+        }
+
+        
+        find_pairs(n, adj, names);
+
+        // Чистим память
+        for (int i = 0; i < n; i++) {
+            delete[] adj[i];
+        }
+        delete[] adj;
 
         return 0;
     }
