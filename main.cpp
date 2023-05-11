@@ -27,54 +27,42 @@ void find_pairs(int n, int** adj, string* names) {
     }
 }
 
+
 int main() {
     setlocale(LC_ALL, "Russian");
     int n = 5;
     string names[] = { "Олег", "Никита", "Настя", "Ваня", "Женя" };
-    int** adj = new int* [n];
+    int** adj = new int* [n]; // Выделить память для матрицы смежности
     for (int i = 0; i < n; i++) {
         adj[i] = new int[n];
         for (int j = 0; j < n; j++) {
-            adj[i][j] = INT_MAX / 2;
+            adj[i][j] = INT_MAX / 2; // Инициализировать матрицу большими значениями
         }
-        adj[i][i] = 0;
-
-        // Добавляем ребра
-        pair<string, string> edges[] = { {"Олег", "Никита"}, {"Никита", "Настя"}, {"Настя", "Ваня"}, {"Ваня", "Женя"} };
-        int m = sizeof(edges) / sizeof(edges[0]);
-        for (int i = 0; i < m; i++) {
-            int u = -1, v = -1;
-            for (int j = 0; j < n; j++) {
-                if (names[j] == edges[i].first) u = j;
-                if (names[j] == edges[i].second) v = j;
-            }
-            if (u != -1 && v != -1) {
-                adj[u][v] = adj[v][u] = 1;
-            }
-        }
-
-        // Добавляем ребра, указанные во входных данных
-        pair<string, string> edges[] = { {"Oleg", "Nikita"}, {"Nikita", "Nastya"}, {"Nastya", "Vanya"}, {"Vanya", "Zhenya"} }; // Edges between them
-        int m = sizeof(edges) / sizeof(edges[0]); // Number of edges
-        for (int i = 0; i < m; i++) {
-            int u = -1, v = -1;
-            for (int j = 0; j < n; j++) {
-                if (names[j] == edges[i].first) u = j;
-                if (names[j] == edges[i].second) v = j;
-            }
-            if (u != -1 && v != -1) {
-                adj[u][v] = adj[v][u] = 1; 
-            }
-        }
-
-        
-        find_pairs(n, adj, names);
-
-        // Чистим память
-        for (int i = 0; i < n; i++) {
-            delete[] adj[i];
-        }
-        delete[] adj;
-
-        return 0;
+        adj[i][i] = 0; // Обнуляем элементы
     }
+
+    // Добавляем связи
+    pair<string, string> edges[] = { {"Олег", "Никита"}, {"Никита", "Настя"}, {"Настя", "Ваня"}, {"Ваня", "Женя"} }; 
+    int m = sizeof(edges) / sizeof(edges[0]); 
+    for (int i = 0; i < m; i++) {
+        int u = -1, v = -1;
+        for (int j = 0; j < n; j++) {
+            if (names[j] == edges[i].first) u = j;
+            if (names[j] == edges[i].second) v = j;
+        }
+        if (u != -1 && v != -1) {
+            adj[u][v] = adj[v][u] = 1; 
+        }
+    }
+
+    
+    find_pairs(n, adj, names);
+
+    // Чистим память
+    for (int i = 0; i < n; i++) {
+        delete[] adj[i];
+    }
+    delete[] adj;
+
+    return 0;
+}
